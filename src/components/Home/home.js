@@ -6,12 +6,7 @@ import { setCleanState, addFirstComponent } from '../../actions';
 
 class Home extends Component {
 
-    // state = {
-    //     items:[],
-    //     counter:0
-    // }
-
-    componentWillMount(){
+    componentWillMount() {
         this.props.dispatch(setCleanState());
     }
 
@@ -24,11 +19,11 @@ class Home extends Component {
         console.log(this.props);
         return (
             <div>
-                 <h1>App main components ! </h1>
+                <h1>App main components ! </h1>
                 {
                     this.props.forms != null ?
                         this.props.forms.map((item, id) => (
-                            <FirstForm key={id} xx={id}/>
+                            <FirstForm key={id} xx={id} />
                         )) : null
                 }
                 <button className={style.button} onClick={this.addChild}>Add Input</button>
@@ -37,8 +32,8 @@ class Home extends Component {
     }
 }
 
-function mapStateToProps(state){
-    return{
+function mapStateToProps(state) {
+    return {
         forms: state.forms
     }
 }

@@ -1,5 +1,5 @@
-export default function(state={}, action){
-    switch(action.type){
+export default function (state = {}, action) {
+    switch (action.type) {
         // case 'USER_LOGIN':
         //     return {...state, login:action.payload}
         // case 'USER_AUTH':
@@ -16,10 +16,14 @@ export default function(state={}, action){
         //     }
 
         case 'SET_CLEAN_STATE':
-            return {...state, forms:[action.payload]}
+            return { ...state, forms: action.payload }
         case 'ADD_FIRST_COMPONENT':
-            return {...state, 
-                forms:[...state.forms, action.payload]}
+            return {
+                ...state,
+                // forms:[...state.forms, action.payload]
+                forms: state.forms.concat(action.payload)
+
+            }
         default:
             return state;
     }
