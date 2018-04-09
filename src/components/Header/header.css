@@ -1,0 +1,11 @@
+.header{
+    position:relative;
+}
+
+.header div{
+    color:red;
+    border: 1px solid black;
+    padding: 10px;
+    display: inline-flex;
+    margin:0;
+}
