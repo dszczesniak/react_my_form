@@ -16,7 +16,6 @@ class Home extends Component {
     }
 
     addChild = () => {
-        console.log(this.props.forms)
         var actualProp = this.props.forms;
         this.props.dispatch(addFirstComponent(actualProp));
     }
@@ -27,10 +26,10 @@ class Home extends Component {
             <div>
                  <h1>App main components ! </h1>
                 {
-                    // this.props.forms != null ? this.props.forms.items.map((item, id) => (
-                    //     <FirstForm key={id} xx={id}/>
-                        
-                    // )) : null
+                    this.props.forms != null ?
+                        this.props.forms.map((item, id) => (
+                            <FirstForm key={id} xx={id}/>
+                        )) : null
                 }
                 <button className={style.button} onClick={this.addChild}>Add Input</button>
             </div>

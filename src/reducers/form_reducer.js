@@ -16,11 +16,10 @@ export default function(state={}, action){
         //     }
 
         case 'SET_CLEAN_STATE':
-            return {...state, forms:action.payload}
+            return {...state, forms:[action.payload]}
         case 'ADD_FIRST_COMPONENT':
-            return {...state,
-                 forms:action.payload
-            }
+            return {...state, 
+                forms:[...state.forms, action.payload]}
         default:
             return state;
     }
