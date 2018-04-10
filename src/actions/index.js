@@ -1,22 +1,15 @@
-export function setCleanState() {
-    return {
-        type: 'SET_CLEAN_STATE',
-        payload: [{
-            id: 0,
-            idParent:null, //do not for change
-            level:0,       //do not for change
-            tree:[]
-        }]
-    }
-}
-
 export function addFirstComponent(oldProps) {
-    var lastForm = oldProps[oldProps.length - 1];
+    var lastForm;
+    oldProps.length !== 0 ?
+        lastForm = oldProps[oldProps.length - 1]
+        :
+        lastForm = {id:-1};
+
 
     return {
         type: 'ADD_FIRST_COMPONENT',
         payload: [{
-            id: lastForm.id + 1,
+            id: lastForm.id + 1 ,
             idParent:null, //do not for change
             level:0,       //do not for change
             tree:[]        //do not for change
@@ -52,10 +45,9 @@ export function deleteForm(props){
             deleteForm(props);
         }
     }
-    
+
     return{
         type:'DELETE_FORM',
-        payload: allForms,
-        props: props
+        payload: allForms
     }
 }

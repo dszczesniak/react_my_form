@@ -7,12 +7,9 @@ import { setCleanState, addFirstComponent } from '../../actions';
 
 class Home extends Component {
 
-    componentWillMount() {
-        this.props.dispatch(setCleanState());
-    }
-
     addChild = () => {
         var actualProp = this.props.forms;
+        console.log("Teraz przekazuje takie propsy: "+actualProp);
         this.props.dispatch(addFirstComponent(actualProp));
     }
 
