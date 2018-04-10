@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
 import style from './firstForm.css';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addChildComponent, deleteForm } from '../../actions';
 
-class FirstForm extends Component {
+class ChildForm extends Component {
 
     genChildForm = (props) =>{
         var oldProps = this.props.forms;
@@ -18,6 +18,13 @@ class FirstForm extends Component {
     render() {
         return (
             <div className={style.formDiv}>
+                <div>Condition:
+                            <select value='1'>
+                        <option val="==">Equals</option>
+                        <option val=">">Greater than</option>
+                        <option val="<">Less than</option>
+                    </select>
+                </div><br />
                 Question: <input type="text"></input><br />
                 <div>Type:
                     <select value='radio'>
@@ -29,6 +36,7 @@ class FirstForm extends Component {
                 <button onClick={()=> this.genChildForm()}>Add Sub-Input</button>
                 <button onClick={()=> this.deleteForm()}>Delete</button>
                 <p>ID: {this.props.id}</p>
+
             </div>
         );
     }
@@ -40,4 +48,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(FirstForm);
+export default connect(mapStateToProps)(ChildForm);

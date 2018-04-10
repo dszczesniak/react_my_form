@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import style from './home.css';
 import FirstForm from '../Forms/firstForm';
+import ChildForm from '../Forms/childForm';
 import { connect } from 'react-redux';
 import { setCleanState, addFirstComponent } from '../../actions';
 
@@ -23,7 +24,25 @@ class Home extends Component {
                 {
                     this.props.forms != null ?
                         this.props.forms.map((item, id) => (
-                            <FirstForm key={id} xx={id} />
+                            item.level == 0 ?
+                            <FirstForm
+                            key={id} 
+                            id={item.id} 
+                            idParent={item.idParent}
+                            level={item.level}
+                            allForms={this.props.forms}
+                            tree={item.tree}
+                            />
+                            :
+                            <ChildForm
+                            key={id}
+                            id={item.id}
+                            idParent={item.idParent}
+                            level={item.level}
+                            allForms={this.props.forms}
+                            tree={item.tree}
+                            />
+
                         )) : null
                 }
                 <button className={style.button} onClick={this.addChild}>Add Input</button>
