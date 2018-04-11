@@ -1,24 +1,57 @@
 import React, { Component } from 'react';
-import style from './firstForm.css';
+import style from './forms.css';
 import { connect } from 'react-redux';
-import { addChildComponent, deleteForm } from '../../actions';
+import { addChildComponent, deleteForm, addDataToForm } from '../../actions';
 
 class FirstForm extends Component {
 
-    genChildForm = (props) =>{
+    state = {
+        data:{
+            question: '',
+            type:''
+        }
+    }
+
+    handleInput = (event, name) => {
+        const newData = {
+            ...this.state.data
+        }
+        newData[name] = event.target.value;
+
+        this.setState({
+            data:newData
+        })
+
+        // this.props.dispatch(addDataToForm({
+        //     ...this.state.data
+        // }))
+    }
+
+    
+      
+       
+    
+
+
+    genChildForm = () =>{
         var oldProps = this.props.forms;
         this.props.dispatch(addChildComponent(oldProps, this.props));
     }
 
-    deleteForm = (props) =>{
+    deleteForm = () =>{
         this.props.dispatch(deleteForm(this.props));
         console.log(this.props)
     }
 
     render() {
+        console.log(this.props)
         return (
             <div className={style.formDiv}>
-                Question: <input type="text"></input><br />
+                Question: <input 
+                            type="text"
+                            value={this.state.data.question}
+                            onChange={(event)=>this.handleInput(event, 'question')}
+                            /><br/>
                 <div>Type:
                     <select value='radio'>
                         <option val="radio">Yes/No</option>

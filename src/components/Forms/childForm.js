@@ -1,4 +1,4 @@
-import style from './firstForm.css';
+import style from './forms.css';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addChildComponent, deleteForm } from '../../actions';

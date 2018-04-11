@@ -17,6 +17,11 @@ export default function (state = {}, action) {
                 ...state,
                 forms: state.forms.map(form => form)
             };
+        case 'ADD_NEW_DATA_FORM':
+            return {
+                ...state,
+                forms: action.payload
+            }
         default:
             return state;
     }

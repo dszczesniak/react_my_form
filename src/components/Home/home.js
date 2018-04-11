@@ -3,13 +3,12 @@ import style from './home.css';
 import FirstForm from '../Forms/firstForm';
 import ChildForm from '../Forms/childForm';
 import { connect } from 'react-redux';
-import { setCleanState, addFirstComponent } from '../../actions';
+import { addFirstComponent } from '../../actions';
 
 class Home extends Component {
 
     addChild = () => {
         var actualProp = this.props.forms;
-        console.log("Teraz przekazuje takie propsy: "+actualProp);
         this.props.dispatch(addFirstComponent(actualProp));
     }
 
@@ -21,7 +20,7 @@ class Home extends Component {
                 {
                     this.props.forms != null ?
                         this.props.forms.map((item, id) => (
-                            item.level == 0 ?
+                            item.level === 0 ?
                             <FirstForm
                             key={id} 
                             id={item.id} 
@@ -29,6 +28,7 @@ class Home extends Component {
                             level={item.level}
                             allForms={this.props.forms}
                             tree={item.tree}
+                            dataForm={item.dataForm}
                             />
                             :
                             <ChildForm
@@ -38,6 +38,7 @@ class Home extends Component {
                             level={item.level}
                             allForms={this.props.forms}
                             tree={item.tree}
+                            dataForm={item.dataForm}
                             />
 
                         )) : null

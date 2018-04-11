@@ -1,18 +1,24 @@
 export function addFirstComponent(oldProps) {
     var lastForm;
-    oldProps.length !== 0 ?
-        lastForm = oldProps[oldProps.length - 1]
-        :
-        lastForm = {id:-1};
+    oldProps !== undefined ?
+        oldProps.length !== 0 ?
+            lastForm = oldProps[oldProps.length - 1]
+            :
+            lastForm = {id:-1}
+    :lastForm = {id:-1};
 
 
     return {
         type: 'ADD_FIRST_COMPONENT',
         payload: [{
             id: lastForm.id + 1 ,
-            idParent:null, //do not for change
-            level:0,       //do not for change
-            tree:[]        //do not for change
+            idParent:null,
+            level:0,
+            tree:[],
+            dataForm:{
+                question:'',
+                type:''
+            }
         }]
     }
 }
@@ -32,7 +38,13 @@ export function addChildComponent(oldProps, actualProps) {
             id: lastForm.id + 1,
             idParent: actualProps.id, 
             level: actualProps.level+1,
-            tree
+            tree,
+            dataForm:{
+                question:'',
+                type:'',
+                condition:'',
+                answer:''
+            }
         }]
     }
 }
@@ -49,5 +61,13 @@ export function deleteForm(props){
     return{
         type:'DELETE_FORM',
         payload: allForms
+    }
+}
+
+export function addDataToForm(newData){
+
+    return{
+        type:'ADD_NEW_DATA_FORM',
+        payload: newData
     }
 }
