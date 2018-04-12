@@ -19,16 +19,16 @@ import reducers from './reducers/form_reducer';
 
 
 
-// const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {};
+const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {};
 
 const store = createStore(
     reducers,
-    // persistedState
+    persistedState
   );
 
-//   store.subscribe(()=>{
-//     localStorage.setItem('reduxState', JSON.stringify(store.getState()))
-//   })
+  store.subscribe(()=>{
+    localStorage.setItem('reduxState', JSON.stringify(store.getState()))
+  })
 
 
 ReactDOM.render(

@@ -7,6 +7,7 @@ class FirstForm extends Component {
 
     state = {
         data:{
+            id: this.props.id,
             question: '',
             type:''
         }
@@ -21,16 +22,8 @@ class FirstForm extends Component {
         this.setState({
             data:newData
         })
-
-        // this.props.dispatch(addDataToForm({
-        //     ...this.state.data
-        // }))
+        this.props.dispatch(addDataToForm(newData, this.props.id))
     }
-
-    
-      
-       
-    
 
 
     genChildForm = () =>{
@@ -40,16 +33,16 @@ class FirstForm extends Component {
 
     deleteForm = () =>{
         this.props.dispatch(deleteForm(this.props));
-        console.log(this.props)
     }
 
     render() {
+        console.log(this.state)
         console.log(this.props)
         return (
             <div className={style.formDiv}>
                 Question: <input 
                             type="text"
-                            value={this.state.data.question}
+                            value={ this.props.forms[this.props.id].dataForm.question || ''}
                             onChange={(event)=>this.handleInput(event, 'question')}
                             /><br/>
                 <div>Type:

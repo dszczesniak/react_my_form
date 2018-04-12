@@ -28,7 +28,7 @@ class Home extends Component {
                             level={item.level}
                             allForms={this.props.forms}
                             tree={item.tree}
-                            dataForm={item.dataForm}
+                            dataform={item.dataForm}
                             />
                             :
                             <ChildForm
@@ -38,7 +38,6 @@ class Home extends Component {
                             level={item.level}
                             allForms={this.props.forms}
                             tree={item.tree}
-                            dataForm={item.dataForm}
                             />
 
                         )) : null

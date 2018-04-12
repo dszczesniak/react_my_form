@@ -7,7 +7,6 @@ export function addFirstComponent(oldProps) {
             lastForm = {id:-1}
     :lastForm = {id:-1};
 
-
     return {
         type: 'ADD_FIRST_COMPONENT',
         payload: [{
@@ -64,10 +63,11 @@ export function deleteForm(props){
     }
 }
 
-export function addDataToForm(newData){
+export function addDataToForm(newData, id){
 
     return{
         type:'ADD_NEW_DATA_FORM',
-        payload: newData
+        payload: newData,
+        id
     }
 }

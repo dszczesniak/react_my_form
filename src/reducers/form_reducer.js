@@ -18,9 +18,11 @@ export default function (state = {}, action) {
                 forms: state.forms.map(form => form)
             };
         case 'ADD_NEW_DATA_FORM':
-            return {
-                ...state,
-                forms: action.payload
+            return { 
+                ...state, 
+                forms: state.forms.map(
+                    (form, i) => i === action.id ? {...form, dataForm: action.payload} : form
+                )
             }
         default:
             return state;
