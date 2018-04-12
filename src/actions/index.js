@@ -16,7 +16,7 @@ export function addFirstComponent(oldProps) {
             tree:[],
             dataForm:{
                 question:'',
-                type:''
+                type:'radio'
             }
         }]
     }
@@ -40,8 +40,8 @@ export function addChildComponent(oldProps, actualProps) {
             tree,
             dataForm:{
                 question:'',
-                type:'',
-                condition:'',
+                type:'radio',
+                condition:'===',
                 answer:''
             }
         }]

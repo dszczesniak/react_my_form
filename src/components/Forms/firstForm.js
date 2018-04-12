@@ -7,9 +7,8 @@ class FirstForm extends Component {
 
     state = {
         data:{
-            id: this.props.id,
-            question: '',
-            type:''
+            question: `${this.props.forms[this.props.id].dataForm.question || ""}`,
+            type:`${this.props.forms[this.props.id].dataForm.type || 'radio'}`
         }
     }
 
@@ -40,18 +39,22 @@ class FirstForm extends Component {
         console.log(this.props)
         return (
             <div className={style.formDiv}>
-                Question: <input 
-                            type="text"
-                            value={ this.props.forms[this.props.id].dataForm.question || ''}
-                            onChange={(event)=>this.handleInput(event, 'question')}
-                            /><br/>
+                Question: 
+                <input 
+                    type="text"
+                    value={ this.state.data.question }
+                    onChange={(event)=>this.handleInput(event, 'question')}
+                /><br/>
                 <div>Type:
-                    <select value='radio'>
-                        <option val="radio">Yes/No</option>
-                        <option val="number">Number</option>
-                        <option val="text">Text</option>
+                    <select 
+                    value={this.state.data.type}
+                    onChange={(event)=>this.handleInput(event, 'type')}>
+                        <option value="radio">Yes/No</option>
+                        <option value="number">Number</option>
+                        <option value="text">Text</option>
                     </select>
-                </div><br />
+                </div>
+                <br />
                 <button onClick={()=> this.genChildForm()}>Add Sub-Input</button>
                 <button onClick={()=> this.deleteForm()}>Delete</button>
                 <p>ID: {this.props.id}</p>
