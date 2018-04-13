@@ -3,13 +3,32 @@ import style from './home.css';
 import FirstForm from '../Forms/firstForm';
 import ChildForm from '../Forms/childForm';
 import { connect } from 'react-redux';
-import { addFirstComponent } from '../../actions';
+import { addFirstComponent, sortFormsForDisplay } from '../../actions';
 
 class Home extends Component {
+    
+
+    state = {
+        array: []
+      }
+
+    pushUsedToTable = (item) => {
+        this.setState( (state) => {
+            state.array = state.array.concat([item]);
+        });
+    }
 
     addChild = () => {
         var actualProp = this.props.forms;
         this.props.dispatch(addFirstComponent(actualProp));
+    }
+
+    componentWillMount(){
+        this.props.dispatch(sortFormsForDisplay(this.props.forms));
+    }
+
+    heyhey = () => {
+        this.props.dispatch(sortFormsForDisplay(this.props.forms));
     }
 
     render() {
@@ -18,7 +37,8 @@ class Home extends Component {
             <div>
                 <h1>App main components ! </h1>
                 {
-                    this.props.forms != null ?
+                    this.props.forms != null ? 
+
                         this.props.forms.map((item, id) => (
                             item.level === 0 ?
                             <FirstForm
@@ -40,9 +60,10 @@ class Home extends Component {
                             tree={item.tree}
                             />
 
-                        )) : null
+                        )): null
                 }
                 <button className={style.button} onClick={this.addChild}>Add Input</button>
+                <button className={style.button} onClick={this.heyhey}>refresh</button>
             </div>
         );
     }
@@ -50,7 +71,8 @@ class Home extends Component {
 
 function mapStateToProps(state) {
     return {
-        forms: state.forms
+        forms: state.forms,
+        sortForms: state.sortForms
     }
 }
 

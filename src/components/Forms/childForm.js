@@ -10,14 +10,12 @@ class ChildForm extends Component {
             question: `${this.props.forms[this.props.id] ? this.props.forms[this.props.id].dataForm.question : ""}`,
             type: `${this.props.forms[this.props.id] ? this.props.forms[this.props.id].dataForm.type : 'radio'}`,
             condition: `${this.props.forms[this.props.id] ? this.props.forms[this.props.id].dataForm.condition : "==="}`,
-            answer: `${this.props.forms[this.props.id]
-                ?
-                this.props.forms[this.props.idParent].dataForm.type === 'radio'
-                    ?
-                    this.props.forms[this.props.id].dataForm.answer || 'Yes'
-                    :
-                    this.props.forms[this.props.id].dataForm.answer || ''
-                : ''}`
+
+            answer: `${this.props.forms[this.props.id] ? this.props.forms[this.props.id].dataForm.answer : 
+                    this.props.forms[this.props.idParent].dataForm.type === 'radio' ? 'yes' :
+                    this.props.forms[this.props.idParent].dataForm.type === 'text' ? '' : ''
+                    }`,
+            conditionAnswer: ''
         }
     }
 
@@ -37,7 +35,7 @@ class ChildForm extends Component {
 
     genChildForm = (props) => {
         var oldProps = this.props.forms;
-        this.props.dispatch(addChildComponent(oldProps, this.props));
+        this.props.dispatch(addChildComponent(oldProps, this.props, this.state.data.type));
     }
 
     deleteForm = (props) => {
@@ -58,7 +56,7 @@ class ChildForm extends Component {
                     </select>
 
                     {
-                        this.props.forms[this.props.idParent].dataForm.type === 'number' ?
+                        this.props.forms[this.props.idParent] ? this.props.forms[this.props.idParent].dataForm.type === 'number' ?
                             <input
                                 type="number"
                                 value={this.state.data.answer}
@@ -75,9 +73,10 @@ class ChildForm extends Component {
                                 <select
                                     value={this.state.data.answer}
                                     onChange={(event) => this.handleInput(event, 'answer')}>
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
                                 </select>
+                                : null
                     }
 
                 </div>

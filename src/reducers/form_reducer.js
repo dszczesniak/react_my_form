@@ -24,6 +24,11 @@ export default function (state = {}, action) {
                     (form, i) => i === action.id ? {...form, dataForm: action.payload} : form
                 )
             }
+        case 'SORT_FORMS':
+            return{
+                ...state,
+                forms: action.payload
+            }
         default:
             return state;
     }

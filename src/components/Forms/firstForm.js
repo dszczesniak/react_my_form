@@ -7,8 +7,9 @@ class FirstForm extends Component {
 
     state = {
         data:{
-            question: `${this.props.forms[this.props.id].dataForm.question || ""}`,
-            type:`${this.props.forms[this.props.id].dataForm.type || 'radio'}`
+            question: `${this.props.forms[this.props.id] ? this.props.forms[this.props.id].dataForm.question : ""}`,
+            type:`${this.props.forms[this.props.id] ? this.props.forms[this.props.id].dataForm.type : 'radio'}`,
+            answer:`${this.props.forms[this.props.id] ? this.props.forms[this.props.id].dataForm.answer : ''}`
         }
     }
 
@@ -27,7 +28,7 @@ class FirstForm extends Component {
 
     genChildForm = () =>{
         var oldProps = this.props.forms;
-        this.props.dispatch(addChildComponent(oldProps, this.props));
+        this.props.dispatch(addChildComponent(oldProps, this.props, this.state.data.type));
     }
 
     deleteForm = () =>{
@@ -35,8 +36,6 @@ class FirstForm extends Component {
     }
 
     render() {
-        console.log(this.state)
-        console.log(this.props)
         return (
             <div className={style.formDiv}>
                 Question: 

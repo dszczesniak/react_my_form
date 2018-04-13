@@ -16,13 +16,14 @@ export function addFirstComponent(oldProps) {
             tree:[],
             dataForm:{
                 question:'',
-                type:'radio'
+                type:'radio',
+                answer:''
             }
         }]
     }
 }
 
-export function addChildComponent(oldProps, actualProps) {
+export function addChildComponent(oldProps, actualProps, type) {
     var lastForm = oldProps[oldProps.length - 1];
     var tree =[];
 
@@ -42,7 +43,8 @@ export function addChildComponent(oldProps, actualProps) {
                 question:'',
                 type:'radio',
                 condition:'===',
-                answer:''
+                conditionAnswer:'',
+                answer: type==='radio' ? 'yes' : ''
             }
         }]
     }
@@ -69,5 +71,25 @@ export function addDataToForm(newData, id){
         type:'ADD_NEW_DATA_FORM',
         payload: newData,
         id
+    }
+}
+
+
+export function sortFormsForDisplay(forms){
+    var tab =[];
+    if(forms){
+        for(let item1 of forms){
+            if(!tab.includes(item1)){
+                tab.push(item1);
+                for(let item2 of forms){
+                    item2.tree.includes(item1.id) ? tab.push(item2) : null
+                }
+            }
+        }
+    }
+    
+    return {
+        type:'SORT_FORMS',
+        payload: tab
     }
 }
