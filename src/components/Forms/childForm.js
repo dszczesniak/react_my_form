@@ -1,4 +1,4 @@
-import style from './forms.css';
+import style from './childForm.css';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addChildComponent, deleteForm, addDataToForm, addChildToTree } from '../../actions';
@@ -45,13 +45,13 @@ class ChildForm extends Component {
 
     render() {
         return (
-            <div className={style.formDiv}>
-                <div>Condition:
-
+            <div className={style.formDiv2}>
+                <div>
                     {
                         this.props.forms[this.props.idParent] ? this.props.forms[this.props.idParent].dataForm.type === 'number' ?
-                            <div>
-                                <select
+                            <div>Condition
+                                <select 
+                                    style={{width: "50%", height:"35px"}}
                                     value={this.state.data.condition}
                                     onChange={(event) => this.handleInput(event, 'condition')}>
                                     <option value="===">Equals</option>
@@ -59,35 +59,40 @@ class ChildForm extends Component {
                                     <option value="<">Less than</option>
                                 </select>
                                 <input
+                                    style={{width: "32%", height:"35px"}}
                                     type="number"
                                     value={this.state.data.conditionAnswer}
                                     onChange={(event) => this.handleInput(event, 'conditionAnswer')}
                                 />
                             </div>
 
-                            : this.props.forms[this.props.idParent].dataForm.type === 'text' ?
+                        : this.props.forms[this.props.idParent].dataForm.type === 'text' ?
 
-                                <div>
+                                <div>Condition
                                     <select
+                                        style={{width: "50%", height:"35px"}}
                                         value={this.state.data.condition}
                                         onChange={(event) => this.handleInput(event, 'condition')}>
                                         <option value="===">Equals</option>
                                     </select>
                                     <input
+                                        style={{width: "32%", height:"35px"}}
                                         type="text"
                                         value={this.state.data.conditionAnswer}
                                         onChange={(event) => this.handleInput(event, 'conditionAnswer')}
                                     />
                                 </div>
 
-                                : //By default
-                                <div>
+                        : //By default
+                                <div>Condition
                                     <select
+                                    style={{width: "50%", height:"35px"}}
                                         value={this.state.data.condition}
                                         onChange={(event) => this.handleInput(event, 'condition')}>
                                         <option value="===">Equals</option>
                                     </select>
                                     <select
+                                        style={{width: "31%", height:"35px"}}
                                         value={this.state.data.conditionAnswer}
                                         onChange={(event) => this.handleInput(event, 'conditionAnswer')}>
                                         <option value="yes">Yes</option>
@@ -102,6 +107,7 @@ class ChildForm extends Component {
 
                 Question:
                 <input
+                    style={{width:"84%", marginLeft:"11px", height:"35px"}}
                     type="text"
                     value={this.state.data.question}
                     onChange={(event) => this.handleInput(event, 'question')}
@@ -109,6 +115,7 @@ class ChildForm extends Component {
                 <br />
                 <div>Type:
                     <select
+                        style={{width:"84%", marginLeft:"40px", height:"35px"}}
                         value={this.state.data.type}
                         onChange={(event) => this.handleInput(event, 'type')}>
                         <option value="radio">Yes/No</option>
@@ -116,10 +123,11 @@ class ChildForm extends Component {
                         <option value="text">Text</option>
                     </select>
                 </div><br />
-                <button onClick={() => this.genChildForm()}>Add Sub-Input</button>
-                <button onClick={() => this.deleteForm()}>Delete</button>
-                <p>ID: {this.props.id}</p>
-
+                <div className={style.buttons}>
+                    <button onClick={()=> this.genChildForm()}>Add Sub-Input</button>
+                    <div className={style.divider}></div>
+                    <button onClick={()=> this.deleteForm()}>Delete</button>
+                </div>
             </div>
         );
     }

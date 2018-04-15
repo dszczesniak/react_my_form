@@ -1,0 +1,51 @@
+.formDiv2{
+    border: 1px solid black;
+    width: 500px;
+    height: 190px;
+    margin-bottom:3%;
+    margin-left: 15px;
+    padding: 15px;
+}
+
+.formDiv2 .buttons {
+    float:right;
+}
+
+.formDiv2 button{
+    font-size: 14px;
+    text-align: center;
+    height: 35px;
+    background: #d1d1d1;
+    width: 120px;
+    box-sizing: border-box;
+    display: inline-block;
+    border: 1px solid black;
+    
+}
+
+.formDiv2 input {
+    width: 85%;
+    padding: 10px 20px;
+    margin: 8px 0 8px 9px;
+    box-sizing: border-box;
+    border: 1px solid black;
+    font-size: 14px;
+}
+
+
+
+.formDiv2 select{
+    width: 20%;
+    padding: 10px 20px;
+    background: #f7f7f7;
+    font-size: 20px;
+    border: 1px solid #e1e1e1;
+    margin-left: 13px;
+    
+}
+
+.divider{
+    width:20px;
+    height:auto;
+    display:inline-block;
+}

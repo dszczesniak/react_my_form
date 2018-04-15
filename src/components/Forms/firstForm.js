@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import style from './forms.css';
+import style from './firstForm.css';
 import { connect } from 'react-redux';
 import { addChildComponent, deleteForm, addDataToForm, addChildToTree } from '../../actions';
 
@@ -39,7 +39,8 @@ class FirstForm extends Component {
     render() {
         return (
             <div className={style.formDiv}>
-                Question: 
+
+                Question
                 <input 
                     type="text"
                     value={ this.state.data.question }
@@ -55,9 +56,11 @@ class FirstForm extends Component {
                     </select>
                 </div>
                 <br />
-                <button onClick={()=> this.genChildForm()}>Add Sub-Input</button>
-                <button onClick={()=> this.deleteForm()}>Delete</button>
-                <p>ID: {this.props.id}</p>
+                <div className={style.buttons}>
+                    <button onClick={()=> this.genChildForm()}>Add Sub-Input</button>
+                    <div className={style.divider}></div>
+                    <button onClick={()=> this.deleteForm()}>Delete</button>
+                </div>
             </div>
         );
     }

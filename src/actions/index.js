@@ -15,6 +15,7 @@ export function addFirstComponent(oldProps) {
             level: 0,
             childs: [],
             history:[],
+            isDisplayed: true,
             dataForm: {
                 question: '',
                 type: 'radio',
@@ -41,6 +42,7 @@ export function addChildComponent(oldProps, actualProps, type) {
             level: actualProps.level + 1,
             childs:[],
             history,
+            isDisplayed: false,
             dataForm: {
                 question: '',
                 type: 'radio',

@@ -16,16 +16,23 @@ class Home extends Component {
         return (
           childs.map((child, id) => (
             <div>
-                <ChildForm
-                    key={id}
-                    id={this.props.forms[child].id}
-                    idParent={this.props.forms[child].idParent}
-                    level={this.props.forms[child].level}
-                    allForms={this.props.forms}
-                    childs={this.props.forms[child].childs}
-                    history={this.props.forms[child].history} />
+                {this.props.forms[child] ?
+                    <div>
+                        <ChildForm
+                            key={id}
+                            id={this.props.forms[child].id}
+                            idParent={this.props.forms[child].idParent}
+                            level={this.props.forms[child].level}
+                            allForms={this.props.forms}
+                            childs={this.props.forms[child].childs}
+                            history={this.props.forms[child].history} />
 
-                {this.props.forms[child].childs.length > 0 ? this.renderChilds(this.props.forms[child].childs) : null}
+                            {this.props.forms[child].childs.length > 0 ?
+                                this.renderChilds(this.props.forms[child].childs) 
+                            :null}
+                    </div>
+                :null
+               }
             </div>
           ))
         )}
@@ -34,7 +41,6 @@ class Home extends Component {
         console.log(this.props);
         return (
             <div>
-                <h1>App main components ! </h1>
                 {
                     this.props.forms != null ?
                         this.props.forms.map((item, id) => (

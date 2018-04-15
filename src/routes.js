@@ -13,7 +13,7 @@ class Routes extends Component {
         return (
             <Layout>
                 <Switch>
-                    <Route path="/" exact component={Home}/>
+                    <Route path="/home" exact component={Home}/>
                     <Route path="/preview" exact component={Preview}/>
                     {/* <Route path="/export" exact component={Export}/> */}
                 </Switch>
