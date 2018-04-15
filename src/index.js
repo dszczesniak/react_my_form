@@ -3,8 +3,11 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './routes';
 import { Provider } from 'react-redux'; 
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers/form_reducer';
+import promiseMiddleware from 'redux-promise';
+import ReduxThunk from 'redux-thunk';
+
 
 // const createStoreWithMiddleware = applyMiddleware()(createStore)
 
@@ -23,7 +26,8 @@ const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStor
 
 const store = createStore(
     reducers,
-    persistedState
+    persistedState,
+    applyMiddleware(ReduxThunk)
   );
 
   store.subscribe(()=>{

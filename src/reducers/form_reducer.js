@@ -4,8 +4,8 @@ export default function (state = {}, action) {
             return {
                 ...state,
                 // forms:[...state.forms, action.payload]
-                forms: 
-                state.forms ? state.forms.concat(action.payload) : action.payload
+                forms:
+                    state.forms ? state.forms.concat(action.payload) : action.payload
             }
         case 'ADD_CHILD_COMPONENT':
             return {
@@ -18,16 +18,18 @@ export default function (state = {}, action) {
                 forms: state.forms.map(form => form)
             };
         case 'ADD_NEW_DATA_FORM':
-            return { 
-                ...state, 
+            return {
+                ...state,
                 forms: state.forms.map(
-                    (form, i) => i === action.id ? {...form, dataForm: action.payload} : form
+                    (form, i) => i === action.id ? { ...form, dataForm: action.payload } : form
                 )
             }
-        case 'SORT_FORMS':
-            return{
+        case 'ADD_CHILD_TO_TREE':
+            return {
                 ...state,
-                forms: action.payload
+                forms: state.forms.map(
+                    (form, i) => i === action.toSearchId ? { ...form, childs: action.newChilds } : form
+                )
             }
         default:
             return state;

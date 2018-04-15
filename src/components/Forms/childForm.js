@@ -1,7 +1,7 @@
 import style from './forms.css';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addChildComponent, deleteForm, addDataToForm } from '../../actions';
+import { addChildComponent, deleteForm, addDataToForm, addChildToTree } from '../../actions';
 
 class ChildForm extends Component {
 
@@ -11,11 +11,11 @@ class ChildForm extends Component {
             type: `${this.props.forms[this.props.id] ? this.props.forms[this.props.id].dataForm.type : 'radio'}`,
             condition: `${this.props.forms[this.props.id] ? this.props.forms[this.props.id].dataForm.condition : "==="}`,
 
-            answer: `${this.props.forms[this.props.id] ? this.props.forms[this.props.id].dataForm.answer : 
-                    this.props.forms[this.props.idParent].dataForm.type === 'radio' ? 'yes' :
+            answer: '',
+            conditionAnswer: `${this.props.forms[this.props.id] ? this.props.forms[this.props.id].dataForm.conditionAnswer :
+                this.props.forms[this.props.idParent].dataForm.type === 'radio' ? 'yes' :
                     this.props.forms[this.props.idParent].dataForm.type === 'text' ? '' : ''
-                    }`,
-            conditionAnswer: ''
+                }`
         }
     }
 
@@ -33,50 +33,68 @@ class ChildForm extends Component {
         this.props.dispatch(addDataToForm(newData, this.props.id))
     }
 
-    genChildForm = (props) => {
+    genChildForm = () =>{
         var oldProps = this.props.forms;
         this.props.dispatch(addChildComponent(oldProps, this.props, this.state.data.type));
+        this.props.dispatch(addChildToTree(this.props));
     }
 
     deleteForm = (props) => {
         this.props.dispatch(deleteForm(this.props));
-        console.log(this.props)
     }
 
     render() {
         return (
             <div className={style.formDiv}>
                 <div>Condition:
-                    <select
-                        value={this.state.data.condition}
-                        onChange={(event) => this.handleInput(event, 'condition')}>
-                        <option value="===">Equals</option>
-                        <option value=">">Greater than</option>
-                        <option value="<">Less than</option>
-                    </select>
 
                     {
                         this.props.forms[this.props.idParent] ? this.props.forms[this.props.idParent].dataForm.type === 'number' ?
-                            <input
-                                type="number"
-                                value={this.state.data.answer}
-                                onChange={(event) => this.handleInput(event, 'answer')} />
+                            <div>
+                                <select
+                                    value={this.state.data.condition}
+                                    onChange={(event) => this.handleInput(event, 'condition')}>
+                                    <option value="===">Equals</option>
+                                    <option value=">">Greater than</option>
+                                    <option value="<">Less than</option>
+                                </select>
+                                <input
+                                    type="number"
+                                    value={this.state.data.conditionAnswer}
+                                    onChange={(event) => this.handleInput(event, 'conditionAnswer')}
+                                />
+                            </div>
 
                             : this.props.forms[this.props.idParent].dataForm.type === 'text' ?
 
-                                <input
-                                    type="text"
-                                    value={this.state.data.answer}
-                                    onChange={(event) => this.handleInput(event, 'answer')} />
+                                <div>
+                                    <select
+                                        value={this.state.data.condition}
+                                        onChange={(event) => this.handleInput(event, 'condition')}>
+                                        <option value="===">Equals</option>
+                                    </select>
+                                    <input
+                                        type="text"
+                                        value={this.state.data.conditionAnswer}
+                                        onChange={(event) => this.handleInput(event, 'conditionAnswer')}
+                                    />
+                                </div>
 
                                 : //By default
-                                <select
-                                    value={this.state.data.answer}
-                                    onChange={(event) => this.handleInput(event, 'answer')}>
-                                    <option value="yes">Yes</option>
-                                    <option value="no">No</option>
-                                </select>
-                                : null
+                                <div>
+                                    <select
+                                        value={this.state.data.condition}
+                                        onChange={(event) => this.handleInput(event, 'condition')}>
+                                        <option value="===">Equals</option>
+                                    </select>
+                                    <select
+                                        value={this.state.data.conditionAnswer}
+                                        onChange={(event) => this.handleInput(event, 'conditionAnswer')}>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                </div>
+                            : null
                     }
 
                 </div>
