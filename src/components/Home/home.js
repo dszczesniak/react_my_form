@@ -15,7 +15,7 @@ class Home extends Component {
     renderChilds = (childs) => {
         return (
           childs.map((child, id) => (
-            <div>
+            <div key={id}>
                 {this.props.forms[child] ?
                     <div>
                         <ChildForm
@@ -45,7 +45,7 @@ class Home extends Component {
                     this.props.forms != null ?
                         this.props.forms.map((item, id) => (
                             item.level === 0 ?
-                                <div>
+                                <div key={id}>
                                     <FirstForm
                                         key={id}
                                         id={item.id}

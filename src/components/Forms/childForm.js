@@ -128,6 +128,7 @@ class ChildForm extends Component {
                     <div className={style.divider}></div>
                     <button onClick={()=> this.deleteForm()}>Delete</button>
                 </div>
+                <p>ID: {this.props.id}</p>
             </div>
         );
     }

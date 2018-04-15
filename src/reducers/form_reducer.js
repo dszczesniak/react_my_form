@@ -15,7 +15,10 @@ export default function (state = {}, action) {
         case 'DELETE_FORM':
             return {
                 ...state,
-                forms: state.forms.map(form => form)
+                forms: state.forms.map(
+                    (form, i) => i === action.id ? { ...form, childs: action.newChildren } : form
+                )
+
             };
         case 'ADD_NEW_DATA_FORM':
             return {

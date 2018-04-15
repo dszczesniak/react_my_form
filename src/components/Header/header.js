@@ -22,8 +22,8 @@ const Header = () => {
     const showItems = () => {
         return (
                 items.map( (item, i) => (
-                    <NavLink  to={item.link} activeStyle={{ backgroundColor: '#d1d1d1',  display: 'inline-flex'}}>
-                        <div className={style.item} key={i}>
+                    <NavLink key={i} to={item.link} activeStyle={{ backgroundColor: '#d1d1d1',  display: 'inline-flex'}}>
+                        <div className={style.item} >
                             <span>
                                 {item.text}
                             </span>

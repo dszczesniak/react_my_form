@@ -55,17 +55,29 @@ export function addChildComponent(oldProps, actualProps, type) {
 }
 
 export function deleteForm(props) {
+    var id = props.id;
     var allForms = props.allForms;
     for (let num in allForms) {
         if (allForms[num].history.includes(props.id) || allForms[num].id === props.id) {
             allForms.splice(num, 1)
             deleteForm(props);
         }
+        if (allForms[num]){
+            if(allForms[num].childs.includes(props.id)){
+                var childs = allForms[num].childs;
+                for(let index in childs){
+                    if(childs[index] === props.id){
+                        childs.splice(index, 1)
+                    }
+                }
+            }
+        }
     }
 
     return {
         type: 'DELETE_FORM',
-        payload: allForms
+        newChildren: childs,
+        id
     }
 }
 
