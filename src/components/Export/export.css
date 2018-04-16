@@ -1,6 +1,7 @@
 .exportedData{
     border: 1px solid black;
-    width: 100%;
-    height: 400px;
+    min-height: 400px;
     padding: 15px;
+    margin-left: 15px;
+    margin-right: 50px;
 }
