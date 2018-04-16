@@ -12,10 +12,12 @@ class ChildForm extends Component {
             condition: `${this.props.forms[this.props.id] ? this.props.forms[this.props.id].dataForm.condition : "==="}`,
 
             answer: '',
-            conditionAnswer: `${this.props.forms[this.props.id] ? this.props.forms[this.props.id].dataForm.conditionAnswer :
-                this.props.forms[this.props.idParent].dataForm.type === 'radio' ? 'yes' :
-                    this.props.forms[this.props.idParent].dataForm.type === 'text' ? '' : ''
-                }`
+            conditionAnswer: `${this.props.forms[this.props.id] ? 
+                this.props.forms[this.props.id].dataForm.conditionAnswer ?
+                    this.props.forms[this.props.id].dataForm.conditionAnswer :
+                        this.props.forms[this.props.idParent].dataForm.type === 'radio' ? 'yes' :
+                            this.props.forms[this.props.idParent].dataForm.type === 'text' ? '' : '' :null
+            }`
         }
     }
 
@@ -34,12 +36,11 @@ class ChildForm extends Component {
     }
 
     genChildForm = () =>{
-        var oldProps = this.props.forms;
-        this.props.dispatch(addChildComponent(oldProps, this.props, this.state.data.type));
+        this.props.dispatch(addChildComponent(this.props, this.state.data.type));
         this.props.dispatch(addChildToTree(this.props));
     }
 
-    deleteForm = (props) => {
+    deleteForm = () => {
         this.props.dispatch(deleteForm(this.props));
     }
 
@@ -128,7 +129,6 @@ class ChildForm extends Component {
                     <div className={style.divider}></div>
                     <button onClick={()=> this.deleteForm()}>Delete</button>
                 </div>
-                <p>ID: {this.props.id}</p>
             </div>
         );
     }

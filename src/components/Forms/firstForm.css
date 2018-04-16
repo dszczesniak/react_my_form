@@ -23,19 +23,20 @@ button{
     border: 1px solid black;
     
 }
-input {
+.formDiv input {
     width: 85%;
     padding: 10px 20px;
     margin: 8px 0 8px 9px;
     box-sizing: border-box;
     border: 1px solid black;
+    font-size: 18px;
 }
 
 select {
     width: 85%;
     padding: 10px 20px;
     background: #f7f7f7;
-    font-size: 20px;
+    font-size: 18px;
     border: 1px solid #e1e1e1;
     margin-left: 33px;
 }

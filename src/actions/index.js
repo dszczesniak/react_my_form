@@ -1,8 +1,8 @@
-export function addFirstComponent(oldProps) {
+export function addFirstComponent(forms) {
     var lastForm;
-    oldProps !== undefined ?
-        oldProps.length !== 0 ?
-            lastForm = oldProps[oldProps.length - 1]
+    forms !== undefined ?
+        forms.length !== 0 ?
+            lastForm = forms[forms.length - 1]
             :
             lastForm = { id: -1 }
         : lastForm = { id: -1 };
@@ -25,21 +25,22 @@ export function addFirstComponent(oldProps) {
     }
 }
 
-export function addChildComponent(oldProps, actualProps, type) {
-    var lastForm = oldProps[oldProps.length - 1];
+export function addChildComponent(props, type) {
+    const forms = props.forms;
+    const lastForm = forms[forms.length - 1];
     var history =[];
  
-     for(let item of actualProps.history){
+     for(let item of props.history){
              history.push(item);
      }
-     history.push(actualProps.id)
+     history.push(props.id)
 
     return {
         type: 'ADD_CHILD_COMPONENT',
         payload: [{
             id: lastForm.id + 1,
-            idParent: actualProps.id,
-            level: actualProps.level + 1,
+            idParent: props.id,
+            level: props.level + 1,
             childs:[],
             history,
             isDisplayed: false,

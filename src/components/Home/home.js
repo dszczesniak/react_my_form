@@ -8,42 +8,43 @@ import { addFirstComponent } from '../../actions';
 class Home extends Component {
 
     addChild = () => {
-        var actualProp = this.props.forms;
-        this.props.dispatch(addFirstComponent(actualProp));
+        this.props.dispatch(addFirstComponent(this.props.forms));
     }
 
     renderChilds = (childs) => {
+        const forms = this.props.forms;
         return (
-          childs.map((child, id) => (
-            <div key={id}>
-                {this.props.forms[child] ?
-                    <div>
-                        <ChildForm
-                            key={id}
-                            id={this.props.forms[child].id}
-                            idParent={this.props.forms[child].idParent}
-                            level={this.props.forms[child].level}
-                            allForms={this.props.forms}
-                            childs={this.props.forms[child].childs}
-                            history={this.props.forms[child].history} />
+            childs?
+                childs.map((child, id) => (
+                    <div key={id}>
+                        {forms[child] ?
+                            <div style={{marginLeft:"15px"}}>
+                                <ChildForm
+                                    key={id}
+                                    id={forms[child].id}
+                                    idParent={forms[child].idParent}
+                                    level={forms[child].level}
+                                    allForms={forms}
+                                    childs={forms[child].childs}
+                                    history={forms[child].history} />
 
-                            {this.props.forms[child].childs.length > 0 ?
-                                this.renderChilds(this.props.forms[child].childs) 
-                            :null}
+                                    {forms[child].childs.length > 0 ?
+                                        this.renderChilds(forms[child].childs) 
+                                    :null}
+                            </div>
+                        :null}
                     </div>
-                :null
-               }
-            </div>
-          ))
+                ))
+          :null
         )}
 
     render() {
-        console.log(this.props);
+        const forms = this.props.forms;
         return (
             <div>
                 {
-                    this.props.forms != null ?
-                        this.props.forms.map((item, id) => (
+                    forms != null ?
+                        forms.map((item, id) => (
                             item.level === 0 ?
                                 <div key={id}>
                                     <FirstForm
@@ -51,7 +52,7 @@ class Home extends Component {
                                         id={item.id}
                                         idParent={item.idParent}
                                         level={item.level}
-                                        allForms={this.props.forms}
+                                        allForms={forms}
                                         childs={item.childs}
                                         history={item.history}
                                         dataform={item.dataForm} />

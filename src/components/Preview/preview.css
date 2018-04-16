@@ -1,13 +1,15 @@
 .baseDiv{
-        border: 1px solid black;
         width: 60%;
         margin-bottom:3%;
         padding:5px;
 }
 
 .childDiv{
-        border: 1px solid red;
         width: 60%;
         margin-bottom:3%;
         padding:5px;
+}
+
+.radioCheck label{
+        margin-right: 20px;
 }

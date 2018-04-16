@@ -18,172 +18,106 @@ class Preview extends Component {
         this.props.dispatch(addDataToForm(newData, id))
     }
 
+    generateParentForm = (item) => {
+        return (
+            <div className={style.baseDiv} style={{marginLeft:`${item.level*20}px`}} >
+            <p>{item.dataForm.question}</p>
+            {
+                item.dataForm.type === 'number' ?
+                    <input
+                        style={{width:"170px", height:"25px", fontSize:"18px", paddingLeft:"8px"}}
+                        type="number"
+                        value={item.dataForm.answer || ''}
+                        onChange={(event) => this.handleInput(event, item.dataForm, item.id)} 
+                    />
+                    : item.dataForm.type === 'text' ?
+                        <input
+                            style={{width:"170px", height:"25px", fontSize:"18px", paddingLeft:"8px"}}
+                            type="text"
+                            value={item.dataForm.answer || ''}
+                            onChange={(event) => this.handleInput(event, item.dataForm, item.id)} 
+                        />
+                    : item.dataForm.type === 'radio' ?
+                        <div className={style.radioCheck} onChange={(event) => this.handleInput(event, item.dataForm, item.id)}>
+                            <input style={{width:"5%"}} type="radio" value="yes" id="yes" name="choose" />
+                            <label for="yes">Yes</label>
+                            <input style={{width:"5%"}} type="radio" value="no" id="no" name="choose" />
+                            <label for="no">No</label>
+                        </div>
+                    : null
+            }
+        </div>
+        )
+    }
+
+    generateChildForm = (item) => {
+        return (
+            <div>
+                {item.isDisplayed = true}
+                {item.dataForm.type === "radio" ?
+                    <div className={style.childDiv} style={{ marginLeft: `${item.level * 20}px` }}><p>{item.dataForm.question}</p>
+                        <div className={style.radioCheck} onChange={(event) => this.handleInput(event, item.dataForm, item.id)}>
+                            <input style={{width:"5%"}} type="radio" value="yes" id="yes" name="choose" />
+                            <label for="yes">Yes</label>
+                            <input style={{width:"5%"}} type="radio" value="no" id="no" name="choose" />
+                            <label for="no">No</label>
+                        </div>
+                    </div>
+                    : item.dataForm.type === "text" ?
+                        <div className={style.childDiv} style={{ marginLeft: `${item.level * 20}px` }}><p>{item.dataForm.question}</p>
+                            <input
+                                style={{ width: "170px", height: "25px", fontSize: "18px", paddingLeft: "8px" }}
+                                type="text"
+                                value={item.dataForm.answer || ''}
+                                onChange={(event) => this.handleInput(event, item.dataForm, item.id)} />
+                        </div>
+                        : item.dataForm.type === "number" ?
+                            <div className={style.childDiv} style={{ marginLeft: `${item.level * 20}px` }}>
+                                <p>{item.dataForm.question}</p>
+                                <input
+                                    style={{ width: "170px", height: "25px", fontSize: "18px", paddingLeft: "8px" }}
+                                    type="number"
+                                    value={item.dataForm.answer || ''}
+                                    onChange={(event) => this.handleInput(event, item.dataForm, item.id)} />
+                            </div>
+                        : null}
+            </div>
+        )
+    }
+
 
     render() {
-        console.log(this.props)
-        //pozmieniac nazewnictwo
-        var allForms = this.props.forms; 
+        const forms = this.props.forms;
+
         return (
             <div>
                 {
-                    allForms != null ?
-                        this.props.forms.map((item, id) => (
-
-
-
-                            item.level === 0 ? // IF PARENT
-
-                                <div className={style.baseDiv}>
-                                    <p>{item.dataForm.question}</p>
-                                    {
-                                        item.dataForm.type === 'number' ?
-                                            <input
-                                                type="number"
-                                                value={item.dataForm.answer || ''}
-                                                onChange={(event) => this.handleInput(event, item.dataForm, item.id)} 
-                                            />
-
-                                            : item.dataForm.type === 'text' ?
-                                                <input
-                                                    type="text"
-                                                    value={item.dataForm.answer || ''}
-                                                    onChange={(event) => this.handleInput(event, item.dataForm, item.id)} 
-                                                />
-
-                                            : item.dataForm.type === 'radio' ?
-                                                <div onChange={(event) => this.handleInput(event, item.dataForm, item.id)}>
-                                                    <input type="radio" value="yes" name="choose" /> Yes
-                                                <input type="radio" value="no" name="choose" /> No
-                                            </div>
-                                        : null
-                                    }
-                                </div>
-
-
+                    forms != null ?
+                        forms.map((item, id) => (
                             
-                            :this.props.forms[item.idParent].dataForm.type === "radio" | this.props.forms[item.idParent].dataForm.type === "text" ?
-                                this.props.forms[item.idParent].dataForm.answer === item.dataForm.conditionAnswer & this.props.forms[item.idParent].isDisplayed ?
-                                    <div>
-                                        {item.isDisplayed = true}
-                                        {item.dataForm.type === "radio" ?
-                                            <div><p>{item.dataForm.question}</p>
-                                                <div onChange={(event) => this.handleInput(event, item.dataForm, item.id)}>
-                                                    <input type="radio" value="yes" name="choose" /> Yes
-                                                    <input type="radio" value="no" name="choose" /> No
-                                                </div>
-                                            </div>
-                                        : item.dataForm.type === "text" ?
-                                            <div><p>{item.dataForm.question}</p>
-                                                <input
-                                                    type="text"
-                                                    value={item.dataForm.answer || ''}
-                                                    onChange={(event) => this.handleInput(event, item.dataForm, item.id)} />
-                                            </div>
-                                        : item.dataForm.type === "number" ?
-                                            <div>
-                                                <p>{item.dataForm.question}</p>
-                                                <input
-                                                    type="number"
-                                                    value={item.dataForm.answer || ''}
-                                                    onChange={(event) => this.handleInput(event, item.dataForm, item.id)} />
-                                            </div>
-                                        : null}
-                                    </div>
+                            item.level === 0 ? 
+                                this.generateChildForm(item)
+                            :forms[item.idParent].dataForm.type === "radio" | forms[item.idParent].dataForm.type === "text" ?
+                                forms[item.idParent].dataForm.answer === item.dataForm.conditionAnswer & forms[item.idParent].isDisplayed ?
+                                    this.generateChildForm(item)
                                 :item.isDisplayed = false
-                            :this.props.forms[item.idParent].dataForm.type === "number" ?
+                            :forms[item.idParent].dataForm.type === "number" ?
                                 item.dataForm.condition === ">" ?
-                                    this.props.forms[item.idParent].dataForm.answer > item.dataForm.conditionAnswer ?
-                                        <div>
-                                            {item.isDisplayed = true}
-                                            {item.dataForm.type === "radio" ?
-                                                <div><p>{item.dataForm.question}</p>
-                                                    <div onChange={(event) => this.handleInput(event, item.dataForm, item.id)}>
-                                                        <input type="radio" value="yes" name="choose" /> Yes
-                                                        <input type="radio" value="no" name="choose" /> No
-                                                    </div>
-                                                </div>
-                                            : item.dataForm.type === "text" ?
-                                                <div><p>{item.dataForm.question}</p>
-                                                    <input
-                                                        type="text"
-                                                        value={item.dataForm.answer || ''}
-                                                        onChange={(event) => this.handleInput(event, item.dataForm, item.id)} />
-                                                </div>
-                                            : item.dataForm.type === "number" ?
-                                                <div>
-                                                    <p>{item.dataForm.question}</p>
-                                                    <input
-                                                        type="number"
-                                                        value={item.dataForm.answer || ''}
-                                                        onChange={(event) => this.handleInput(event, item.dataForm, item.id)} />
-                                                </div>
-                                            : null}
-                                        </div>
+                                    forms[item.idParent].dataForm.answer > item.dataForm.conditionAnswer ?
+                                        this.generateChildForm(item)
                                     :item.isDisplayed = false
                                 :item.dataForm.condition === "<" ?
-                                    this.props.forms[item.idParent].dataForm.answer < item.dataForm.conditionAnswer ?
-                                        <div>
-                                            {item.isDisplayed = true}
-                                            {item.dataForm.type === "radio" ?
-                                                <div><p>{item.dataForm.question}</p>
-                                                    <div onChange={(event) => this.handleInput(event, item.dataForm, item.id)}>
-                                                        <input type="radio" value="yes" name="choose" /> Yes
-                                                        <input type="radio" value="no" name="choose" /> No
-                                                    </div>
-                                                </div>
-                                            : item.dataForm.type === "text" ?
-                                                <div><p>{item.dataForm.question}</p>
-                                                    <input
-                                                        type="text"
-                                                        value={item.dataForm.answer || ''}
-                                                        onChange={(event) => this.handleInput(event, item.dataForm, item.id)} />
-                                                </div>
-                                            : item.dataForm.type === "number" ?
-                                                <div>
-                                                    <p>{item.dataForm.question}</p>
-                                                    <input
-                                                        type="number"
-                                                        value={item.dataForm.answer || ''}
-                                                        onChange={(event) => this.handleInput(event, item.dataForm, item.id)} />
-                                                </div>
-                                            : null}
-                                        </div>
+                                    forms[item.idParent].dataForm.answer < item.dataForm.conditionAnswer ?
+                                        this.generateChildForm(item)
                                     :item.isDisplayed = false
                                 :item.dataForm.condition === "===" ?
-                                    this.props.forms[item.idParent].dataForm.answer === item.dataForm.conditionAnswer ?
-                                        <div>
-                                            {item.isDisplayed = true}
-                                            {item.dataForm.type === "radio" ?
-                                                <div><p>{item.dataForm.question}</p>
-                                                    <div onChange={(event) => this.handleInput(event, item.dataForm, item.id)}>
-                                                        <input type="radio" value="yes" name="choose" /> Yes
-                                                        <input type="radio" value="no" name="choose" /> No
-                                                    </div>
-                                                </div>
-                                            : item.dataForm.type === "text" ?
-                                                <div><p>{item.dataForm.question}</p>
-                                                    <input
-                                                        type="text"
-                                                        value={item.dataForm.answer || ''}
-                                                        onChange={(event) => this.handleInput(event, item.dataForm, item.id)} />
-                                                </div>
-                                            : item.dataForm.type === "number" ?
-                                                <div>
-                                                    <p>{item.dataForm.question}</p>
-                                                    <input
-                                                        type="number"
-                                                        value={item.dataForm.answer || ''}
-                                                        onChange={(event) => this.handleInput(event, item.dataForm, item.id)} />
-                                                </div>
-                                            : null}
-                                        </div>
+                                    forms[item.idParent].dataForm.answer === item.dataForm.conditionAnswer ?
+                                        this.generateChildForm(item)
                                     :item.isDisplayed = false
                                 :null
                             :null
-
                         )) : null
                 }
-
             </div>
         );
     }

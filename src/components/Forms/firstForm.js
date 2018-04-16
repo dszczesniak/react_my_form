@@ -27,13 +27,12 @@ class FirstForm extends Component {
 
 
     genChildForm = () =>{
-        var oldProps = this.props.forms;
-        this.props.dispatch(addChildComponent(oldProps, this.props, this.state.data.type));
+        this.props.dispatch(addChildComponent(this.props, this.state.data.type));
         this.props.dispatch(addChildToTree(this.props));
     }
 
-    deleteForm = () =>{
-        this.props.dispatch(deleteForm(this.props, this.props.forms));
+    deleteForm = () => {
+        this.props.dispatch(deleteForm(this.props));
     }
 
     render() {
